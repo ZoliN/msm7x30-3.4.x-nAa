@@ -2931,7 +2931,7 @@ static int msm_hsusb_pmic_notif_init(void (*callback)(int online), int init)
 }
 #endif
 
-static struct android_pmem_platform_data android_pmem_pdata = {
+/*static struct android_pmem_platform_data android_pmem_pdata = {
 	.name = "pmem",
 	.allocator_type = PMEM_ALLOCATORTYPE_ALLORNOTHING,
 	.cached = 1,
@@ -2942,7 +2942,7 @@ static struct platform_device android_pmem_device = {
 	.name = "android_pmem",
 	.id = 0,
 	.dev = { .platform_data = &android_pmem_pdata },
-};
+};*/
 
 static struct msm_serial_hs_platform_data msm_uart_dm1_pdata = {
        .inject_rx_on_wakeup = 1,
@@ -3378,7 +3378,7 @@ static struct platform_device *devices[] __initdata = {
 #ifdef CONFIG_I2C_SSBI
 	&msm_device_ssbi7,
 #endif
-	&android_pmem_device,
+//	&android_pmem_device,
 	&msm_fb_device,
 	&msm_migrate_pages_device,
 #ifdef CONFIG_MSM_ROTATOR
@@ -4110,14 +4110,14 @@ static void __init msm7x30_init(void)
 	printk(KERN_NOTICE "Boot Reason = 0x%02x\n", boot_reason);
 }
 
-static unsigned pmem_sf_size = MSM_PMEM_SF_SIZE;
+/*static unsigned pmem_sf_size = MSM_PMEM_SF_SIZE;
 static int __init pmem_sf_size_setup(char *p)
 {
 	pmem_sf_size = memparse(p, NULL);
 	return 0;
 }
 early_param("pmem_sf_size", pmem_sf_size_setup);
-
+*/
 static unsigned fb_size;
 static int __init fb_size_setup(char *p)
 {
@@ -4157,7 +4157,7 @@ static void __init size_pmem_devices(void)
 {
 #ifdef CONFIG_ANDROID_PMEM
 	android_pmem_adsp_pdata.size = pmem_adsp_size;
-	android_pmem_pdata.size = pmem_sf_size;
+  //android_pmem_pdata.size = pmem_sf_size;
 #endif
 }
 
@@ -4170,7 +4170,7 @@ static void __init reserve_pmem_memory(void)
 {
 #ifdef CONFIG_ANDROID_PMEM
 	reserve_memory_for(&android_pmem_adsp_pdata);
-	reserve_memory_for(&android_pmem_pdata);
+  //reserve_memory_for(&android_pmem_pdata);
 	msm7x30_reserve_table[MEMTYPE_EBI0].size += pmem_kernel_ebi0_size;
 #endif
 }
